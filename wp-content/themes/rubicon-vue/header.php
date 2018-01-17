@@ -11,13 +11,15 @@
     <link href="https://fonts.googleapis.com/css?family=Ultra" rel="stylesheet">
     <?php wp_head(); ?>
 
-
+		
     <meta name="viewport" content="width=device-width">
 </head>
 <body <?php body_class(); ?>>
         
         
-
+<script>
+	var  global_page_id = <?php global $post;echo $post->ID; ?>;
+</script>
 
 
         

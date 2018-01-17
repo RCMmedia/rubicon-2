@@ -132,6 +132,57 @@ function show_image($object, $field_name, $request){
     return $image[0];
 }
 
+/*
+$post_type = "page";
 
+function my_rest_prepare_post($data, $post, $request) {  
+    $_data = $data->data;
+
+    $fields = get_fields($post->ID);
+
+    foreach ($fields as $key => $value){
+        $_data[$key] = get_field($key, $post->ID);
+    }
+
+    $data->data = $_data;
+    return $data;
+}
+
+add_filter("rest_prepare_{$post_type}", 'my_rest_prepare_post', 10, 3);
+*/
+
+function wp_rest_api_alter() {
+  register_rest_field( 'page',
+      'lat',
+      array(
+        'get_callback'    => function($data, $field, $request, $type){
+          if (function_exists('get_field')) {
+            return get_field('lat');
+          }
+          return [];
+        },
+        'update_callback' => null,
+        'schema'          => null,
+      )
+  );
+}
+add_action( 'rest_api_init', 'wp_rest_api_alter');
+
+function wp_rest_api_alter1() {
+  register_rest_field( 'page',
+      'lng',
+      array(
+        'get_callback'    => function($data, $field, $request, $type){
+          if (function_exists('get_field')) {
+            return get_field('lng');
+          }
+          return [];
+        },
+        'update_callback' => null,
+        'schema'          => null,
+      )
+  );
+}
+add_action( 'rest_api_init', 'wp_rest_api_alter1');
 
 

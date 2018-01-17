@@ -17,9 +17,9 @@
 			</div><!-- left -->
 			<div class="middle">
 				<div class="logo">
-				<router-link to="/rubicon-vue/">
-					<img src="<?php bloginfo('template_url') ?>/images/rubicon_logo.svg" alt="logo-placeholder" width="222" height="83" />
-					<img src="<?php bloginfo('template_url') ?>/images/dd.svg" alt="dapperman" width="63" height="94" />
+				<router-link v-on:click.native="scrollTop" to="/rubicon-vue/">
+					<img src="<?php bloginfo('template_url') ?>/images/rubicon_logo.svg" alt="logo-placeholder" width="350" height="130" />
+					<img style="display: none" src="<?php bloginfo('template_url') ?>/images/dd.svg" alt="dapperman" height="130" />
 				</router-link>
 			</div><!-- logo -->
 			</div><!-- middle -->
@@ -28,32 +28,64 @@
 					<a href="" target="_blank">Order Online</a>
 				</div><!-- order-online -->
 			</div><!-- right -->
-			
-			
-			
 		</div><!-- inner-wrap -->
 		
 		<div class="menu">
 			<ul>
-				<li><router-link to="/rubicon-vue/locations">Locations</router-link></li>
-				<li><router-link to="/rubicon-vue/">Menu</router-link></li>
-				<li><router-link to="/rubicon-vue/posts">Catering</router-link></li>
+				<li><router-link v-on:click.native="scrollTop" to="/rubicon-vue/locations">Locations</router-link></li>
+				<li><router-link v-on:click.native="scrollTop" to="/rubicon-vue/">Menu</router-link></li>
+				<li><router-link v-on:click.native="scrollTop" to="/rubicon-vue/posts">Catering</router-link></li>
 				<li>
-					<div class="social-links">
-						<a href="" target="_blank"><img src="<?php bloginfo('template_url') ?>/images/fb.svg" width="21" height="44"/></a>
-					</div><!-- social-links -->
+					<div class="social-icons">
+						<a class="facebook" href="" target="_blank">
+							<?php echo file_get_contents(get_template_directory()."/images/fb.svg"); ?>
+						</a>
+						<a class="instagram" href="" target="_blank">
+							<?php echo file_get_contents(get_template_directory()."/images/instagram.svg"); ?>
+						</a>
+						<a class="twitter" href="" target="_blank">
+							<?php echo file_get_contents(get_template_directory()."/images/twitter.svg"); ?>
+						</a>
+					</div><!-- social-icons -->
 				</li>
 			</ul>
 			
 		</div><!-- menu -->
 		
 	</div><!-- top-header-wrap -->
-	
-<transition name="fade">
-	<router-view></router-view>
-</transition>
+<div class="main-content-wrap">
+	<transition name="fade">
+		<router-view></router-view>
+	</transition>
+</div><!-- main-content-wrap -->
 
-
+<div class="footer">
+	<div class="inner-wrap">
+		<div class="social-icons">
+			<a class="facebook" href="" target="_blank">
+				<?php echo file_get_contents(get_template_directory()."/images/fb.svg"); ?>
+			</a>
+			<a class="instagram" href="" target="_blank">
+				<?php echo file_get_contents(get_template_directory()."/images/instagram.svg"); ?>
+			</a>
+			<a class="twitter" href="" target="_blank">
+				<?php echo file_get_contents(get_template_directory()."/images/twitter.svg"); ?>
+			</a>
+		</div><!-- social-icons -->
+		<div class="footer-menu">
+			<ul>
+				<li><a href="" target="_blank">Order Online</a></li>
+				<li><router-link v-on:click.native="scrollTop" to="/rubicon-vue/locations">Locations</router-link></li>
+				<li><router-link v-on:click.native="scrollTop" to="/rubicon-vue/menu">Menu</router-link></li>
+				<li><router-link v-on:click.native="scrollTop" to="/rubicon-vue/catering">Catering</router-link></li>
+			</ul>
+		</div><!-- footer-menu -->
+		<div class="copyright">
+			<button class="contact-form-toggle">Leave A Comment</button>
+			<span>2018 Rubicon Deli</span>
+		</div><!-- copyright -->
+	</div><!-- inner-wrap -->
+</div><!-- footer -->
 
 </div><!-- app -->
 
@@ -64,6 +96,8 @@
 <?php include(get_template_directory().'/templates/post-single.php'); ?>
 
 <?php include(get_template_directory().'/templates/location-finder.php'); ?>
+<?php include(get_template_directory().'/templates/single-location.php'); ?>
+<?php include(get_template_directory().'/templates/single-menu.php'); ?>
 
 
 
