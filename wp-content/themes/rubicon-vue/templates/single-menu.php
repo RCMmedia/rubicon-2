@@ -5,7 +5,11 @@
 			
 			
 		 	<div class="location-banner" :style="{ 'background-image' : 'url(' + post.acf.location_banner_image.url + ')' }" >
+			 	<div class="change-location">
+				 	<router-link v-on:click.native="scrollTop" to="/rubicon-vue/locations">Change Locations</router-link>
+			 	</div>
 			 	<div class="inner-wrap">
+				 	
 					<div class="location-name">
 						{{post.acf.location_name}}
 						<div class="red">MENU</div>

@@ -12,6 +12,15 @@ var home = Vue.component('home-page', {
 	      //document.title = 'Rubicon Deli Vue'  
 				//document.head.querySelector('meta[name=description]').content = 'This is where we will put the description'  
 
+    },
+    methods: {
+	    scrollTop: function() {
+		    var $root = $('html, body');
+		    $root.animate({
+	        scrollTop: $('body').offset().top
+	    }, 500);
+	    return false;
+	    }
     }
 });
 
@@ -156,7 +165,7 @@ var singleLocationMenu = Vue.component('single-location-menu', {
 
 		var menuID = getParameterByName('id');
 			//var menuID = query.get('id');
-			console.log($route.params.menuPageID);
+			console.log(this.menuPageID);
 			//get full post object
 			
 /*
@@ -184,7 +193,7 @@ var singleLocationMenu = Vue.component('single-location-menu', {
 				console.log(response);
 			});
  			} else {
-			axios.get('/rubicon-vue/wp-json/wp/v2/pages/' + global_page_id).then(response => this.post = response.data).then(function (response) {
+				axios.get('/rubicon-vue/wp-json/wp/v2/pages/' + global_page_id).then(response => this.post = response.data).then(function (response) {
 				console.log(response);
 				
 				//set timeout so that waypoint waits until page has loaded before looking for element.

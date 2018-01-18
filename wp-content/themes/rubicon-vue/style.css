@@ -394,9 +394,17 @@ button#get-geo:after {content: " ";width: 11px;height: 17px;display: inline-bloc
 	margin:0 auto 24px;;
 }
 .loc-catering-link {margin-bottom: 88px;}
-.location-banner {display: flex;align-items: center;justify-content: center;}
+.location-banner {display: flex;align-items: center;justify-content: center;position: relative;}
 .location-banner .inner-wrap {}
-
+.change-location {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+.change-location a {text-decoration: none;color: #fff;transition: all 0.3s ease 0s;}
+.change-location a:hover {color: #b7202b;transition: all 0.3s ease 0s;} 
 .location-name {padding-top: 21%;font-size: 80px;color: #fff;text-transform: uppercase;font-weight: bold;text-align: center;}
 .location-name .red {color: #b7202b;margin-bottom:20px }
 .print-pdf {text-align: center;margin-bottom: 70px}
@@ -429,7 +437,7 @@ button#get-geo:after {content: " ";width: 11px;height: 17px;display: inline-bloc
 .menu-navigation-wrap button {
 	margin: 0px 6px 12px;
 	border-radius: 4px;
-	font-size: 22px;
+	font-size: 21px;
 	text-transform: uppercase;
 	font-weight: bold;
 	cursor: pointer;
@@ -478,8 +486,8 @@ button#get-geo:after {content: " ";width: 11px;height: 17px;display: inline-bloc
 .flex-wrap:last-child {margin-bottom: 0}
 
 .flex-wrap.mini {max-width: 600px;margin: 0 auto 22px;}
-
-
+.single-list-details {display: flex;justify-content: center;padding-bottom: 70px}
+.single-list-content {width: 500px;text-align: center}
 
 
 

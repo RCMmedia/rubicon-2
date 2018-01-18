@@ -2,14 +2,16 @@
 	<div v-if="post" class="post-list-wrap" >
 		
 		<div class="single-post" >
+<!--
 			<div class="location-banner" :style="{ 'background-image' : 'url(' + post.acf.single_location_banner_image.url + ')' }">
 				asdf
 			</div>
+-->
 			
 		</div><!-- single-post -->
 		
-		<div class="list-details">
-		<div class="list-content">
+		<div class="single-list-details">
+		<div class="single-list-content">
 			<div class="loc-name">{{post.title.rendered}}</div>
 			<div class="loc-addr">{{post.acf.location_address}} {{post.acf.location_city}},<br> {{post.acf.state}} {{post.acf.location_zip_code}}</div>
 			<div class="loc-dirc"><a :href="post.acf.location_google_maps_link" target="_blank">GET DIRECTIONS</a></div>
@@ -28,13 +30,9 @@
 			</div>
 			<h3>HOURS</h3>
 			<div class="loc-hours">{{post.acf.hours_of_operation}}</div>
-			{{post.acf.menu_page.ID}}
-<!--
-			<a :href="'/rubicon-vue/locations/' + {{slug}} + '/menu/?id=' + {{id}}" data-page-id="{{post.id}}" class="loc-menu-link router-link-active">View Menu</a>
-			<a href="/rubicon-vue/{{post.slug}}/catering/" class="loc-catering-link router-link-active">View Catering</a>
--->
-<router-link :to="{name: 'locationMenu2', params: {parentName: post.slug ,postName: post.acf.menu_page.post_name, menuPageID: post.acf.menu_page.ID}}">View Location Info</router-link>
-<!-- 						<router-link :to="{name: 'locationSingle', params: {postName: post.acf.catering_page_id.post_name, pageID: post.acf.catering_page_id.ID}}">View Catering</router-link> -->
+
+			<router-link class="loc-menu-link" :to="{name: 'locationMenu2', params: {parentName: post.slug ,postName: post.acf.menu_page.post_name, menuPageID: post.acf.menu_page.ID}}">View Menu</router-link>
+ <!-- <router-link :to="{name: 'locationSingle', params: {postName: post.acf.catering_page_id.post_name, pageID: post.acf.catering_page_id.ID}}">View Catering</router-link> -->
 			
 			
 		</div>
