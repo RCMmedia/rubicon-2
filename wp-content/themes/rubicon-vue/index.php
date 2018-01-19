@@ -32,8 +32,8 @@
 		
 		<div class="menu">
 			<ul>
-				<li><router-link v-on:click.native="scrollTop" to="/rubicon-vue/locations">Locations</router-link></li>
-				<li><router-link v-on:click.native="scrollTop" to="/rubicon-vue/">Menu</router-link></li>
+				<li><router-link v-on:click.native="scrollTop" :to="{name: 'location', params: {menuFinder: false }}">Locations</router-link></li>
+				<li><router-link v-on:click.native="scrollTop" :to="{name: 'location2', params: {menuFinder: true }}">Menu</router-link></li>
 				<li><router-link v-on:click.native="scrollTop" to="/rubicon-vue/posts">Catering</router-link></li>
 				<li>
 					<div class="social-icons">
@@ -55,7 +55,7 @@
 	</div><!-- top-header-wrap -->
 <div class="main-content-wrap">
 	<transition name="fade">
-		<router-view></router-view>
+		<router-view :key="$route.fullPath"></router-view>
 	</transition>
 </div><!-- main-content-wrap -->
 

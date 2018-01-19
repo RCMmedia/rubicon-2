@@ -73,6 +73,7 @@ var post = Vue.component('post', {
 //show locations finder
 var locationfinder = Vue.component('location-finder', {
     template: '#location-finder-wrap',
+    props: ["menuFinder"],
     data: function(){
 	    return {
 		    messages: [],
@@ -138,7 +139,7 @@ var locationfinder = Vue.component('location-finder', {
 });
 
 var singleLocationMenu = Vue.component('single-location-menu', {
-		props: ["postName","locationPageID","parentName","menuPageID"],
+		props: ["postName","locationPageID","parentName","menuPageID","cateringPageID"],
     template: '#single-location-menu',
 		data: function () {
 		  return {
@@ -165,34 +166,19 @@ var singleLocationMenu = Vue.component('single-location-menu', {
 
 		var menuID = getParameterByName('id');
 			//var menuID = query.get('id');
-			console.log(this.menuPageID);
+			console.log('page-var= ' + this.menuPageID);
+			console.log('global_page_id=' +global_page_id);
 			//get full post object
 			
-/*
-			if(typeof menuID == 'undefined'){
-				axios.get('/rubicon-vue/wp-json/wp/v2/pages/' + menuID).then(response => this.post = response.data).then(function (response) {
-					console.log(response);
-				});
- 			} else{
- 				
-				axios.get('/rubicon-vue/wp-json/wp/v2/pages/' + global_page_id).then(response => this.post = response.data).then(function (response) {
-				console.log(response);
-				
-				//set timeout so that waypoint waits until page has loaded before looking for element.
-				setTimeout(function(){ 
-					var sticky = new Waypoint.Sticky({
-						element: $('#menu-navigation-wrap')[0]
-					});	
-					}, 1000);
-				
-			});
- 			}
-*/
 			 if(this.menuPageID){
 	 			axios.get('/rubicon-vue/wp-json/wp/v2/pages/' + this.menuPageID).then(response => this.post = response.data).then(function (response) {
 				console.log(response);
 			});
- 			} else {
+			 } else if (this.cateringPageID){ 
+				 	axios.get('/rubicon-vue/wp-json/wp/v2/pages/' + this.cateringPageID).then(response => this.post = response.data).then(function (response) {
+				console.log(response);
+			});
+			 } else {
 				axios.get('/rubicon-vue/wp-json/wp/v2/pages/' + global_page_id).then(response => this.post = response.data).then(function (response) {
 				console.log(response);
 				
@@ -277,6 +263,7 @@ var singleLocationMenu = Vue.component('single-location-menu', {
     }
 });
 
+
 var singleLocation = Vue.component('single-location', {
     template: '#single-location',
     props: ["postName","locationPageID","parentName"],
@@ -336,9 +323,11 @@ var router = new VueRouter({
         { path: '/rubicon-vue/', component: home },
         { path: '/rubicon-vue/posts', component: postLists },
         { path: '/rubicon-vue/posts/:parent_id', name: 'post', component: post },
-        { path: '/rubicon-vue/locations', name: 'location', component: locationfinder },
+        { path: '/rubicon-vue/locations', name: 'location', component: locationfinder , props: { default: true, menuFinder: false }},
+        { path: '/rubicon-vue/menus', name: 'location2', component: locationfinder , props: { default: true, menuFinder: true }},
         { path: '/rubicon-vue/locations/:postName', name: 'locationSingle', component: singleLocation , props: true},
         { path: '/rubicon-vue/locations/:parentName/:postName', name: 'locationMenu2', component: singleLocationMenu , props: true },
+        { path: '/rubicon-vue/locations/:parentName/:postName', name: 'cateringMenu', component: singleLocationMenu , props: true },
         { path: '/rubicon-vue/locations/*', name: 'locationMenu', component: singleLocationMenu }
     ]
 });

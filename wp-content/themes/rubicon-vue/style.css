@@ -355,12 +355,16 @@ button#get-geo:after {content: " ";width: 11px;height: 17px;display: inline-bloc
 }
 .bh-sl-map-container {width: 100%}
 .bh-sl-map-container li {
+	background: #fff !important;
 	width: 47.67%;
 	padding: 0 4%;
 	text-align: center;
 	margin: 75px 0;
 }
-.list-details {color: #221f20;}
+.list-details {
+	color: #221f20;
+	padding-top: 14%;
+}
 .list-details h3 {font-size: 31px;text-transform: uppercase;font-weight: bold;margin-bottom: 36px;}
 .loc-name {
     color: #221f20;
@@ -395,7 +399,16 @@ button#get-geo:after {content: " ";width: 11px;height: 17px;display: inline-bloc
 }
 .loc-catering-link {margin-bottom: 88px;}
 .location-banner {display: flex;align-items: center;justify-content: center;position: relative;}
-.location-banner .inner-wrap {}
+.list-content {display: flex;flex-direction: column;}
+/* Menu finder order restructure */
+
+.menu-finder .list-content div,.menu-finder .list-content h3, {order:1}
+.menu-finder .loc-name {order:-2}
+.menu-finder .loc-menu-link, .menu-finder .loc-catering-link {order: -2}
+.menu-finder .loc-catering-link {margin-bottom: 50px}
+.menu-finder .loc-hours {margin-bottom: 88px}
+ 
+ 
 .change-location {
     position: absolute;
     top: 20px;
@@ -403,6 +416,8 @@ button#get-geo:after {content: " ";width: 11px;height: 17px;display: inline-bloc
     font-size: 20px;
     text-transform: uppercase;
 }
+
+
 .change-location a {text-decoration: none;color: #fff;transition: all 0.3s ease 0s;}
 .change-location a:hover {color: #b7202b;transition: all 0.3s ease 0s;} 
 .location-name {padding-top: 21%;font-size: 80px;color: #fff;text-transform: uppercase;font-weight: bold;text-align: center;}

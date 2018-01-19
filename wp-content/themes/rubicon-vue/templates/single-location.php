@@ -32,7 +32,7 @@
 			<div class="loc-hours">{{post.acf.hours_of_operation}}</div>
 
 			<router-link class="loc-menu-link" :to="{name: 'locationMenu2', params: {parentName: post.slug ,postName: post.acf.menu_page.post_name, menuPageID: post.acf.menu_page.ID}}">View Menu</router-link>
- <!-- <router-link :to="{name: 'locationSingle', params: {postName: post.acf.catering_page_id.post_name, pageID: post.acf.catering_page_id.ID}}">View Catering</router-link> -->
+			<router-link class="loc-menu-link" :to="{name: 'cateringMenu', params: {parentName: post.slug ,postName: post.acf.catering_page.post_name, cateringPageID: post.acf.catering_page.ID}}">View Catering</router-link>
 			
 			
 		</div>

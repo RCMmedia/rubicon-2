@@ -12,14 +12,18 @@
 				 	
 					<div class="location-name">
 						{{post.acf.location_name}}
-						<div class="red">MENU</div>
+						<div v-if="post.acf.catering_page_id" class="red">MENU</div>
+						<div v-else-if="post.acf.menu_page_id" class="red">CATERING</div>
 					</div><!-- location-name -->
 					<div class="print-pdf">
 						<a :href="post.acf.menu_file" target="_blank">PRINT/View MENU PDF <span>+</span></a>
 					</div><!-- print-pdf -->
 					<div class="link-wrap">
 						<router-link :to="{name: 'locationSingle', params: {postName: post.acf.location_page_id.post_name, locationPageID: post.acf.location_page_id.ID}}">View Location Info</router-link>
-						<router-link :to="{name: 'locationSingle', params: {postName: post.acf.catering_page_id.post_name, pageID: post.acf.catering_page_id.ID}}">View Catering</router-link>
+						
+						<router-link v-if="post.acf.catering_page_id" :to="{name: 'cateringMenu', params: {postName: post.acf.catering_page_id.post_name, postName: post.acf.catering_page_id.post_name, cateringPageID: post.acf.catering_page_id.ID}}">View Catering</router-link>
+						
+						<router-link v-else-if="post.acf.menu_page_id" :to="{name: 'locationMenu2', params: {parentName: post.acf.menu_page_id[0].post_name, postName: post.acf.menu_page_id[1].post_name, menuPageID: post.acf.menu_page_id.ID}}">View Menu</router-link>
 					</div><!-- link-wrap -->
 
 				</div><!-- inner-wrap -->
