@@ -34,7 +34,7 @@
 			<ul>
 				<li><router-link v-on:click.native="scrollTop" :to="{name: 'location', params: {menuFinder: false }}">Locations</router-link></li>
 				<li><router-link v-on:click.native="scrollTop" :to="{name: 'location2', params: {menuFinder: true }}">Menu</router-link></li>
-				<li><router-link v-on:click.native="scrollTop" to="/rubicon-vue/posts">Catering</router-link></li>
+				<li><router-link v-on:click.native="scrollTop" :to="{name: 'location3', params: {menuFinder: false, cateringFinder:true }}">Catering</router-link></li>
 				<li>
 					<div class="social-icons">
 						<a class="facebook" href="" target="_blank">

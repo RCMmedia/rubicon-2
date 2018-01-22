@@ -23,7 +23,7 @@
 						
 						<router-link v-if="post.acf.catering_page_id" :to="{name: 'cateringMenu', params: {postName: post.acf.catering_page_id.post_name, postName: post.acf.catering_page_id.post_name, cateringPageID: post.acf.catering_page_id.ID}}">View Catering</router-link>
 						
-						<router-link v-else-if="post.acf.menu_page_id" :to="{name: 'locationMenu2', params: {parentName: post.acf.menu_page_id[0].post_name, postName: post.acf.menu_page_id[1].post_name, menuPageID: post.acf.menu_page_id.ID}}">View Menu</router-link>
+						<router-link v-if="post.acf.menu_page_id" :to="{name: 'locationMenu2', params: {parentName: post.acf.menu_page_id[0].post_name, postName: post.acf.menu_page_id[1].post_name, menuPageID: post.acf.menu_page_id[1].ID}}">View Menu {{post.acf.menu_page_id.ID}}</router-link>
 					</div><!-- link-wrap -->
 
 				</div><!-- inner-wrap -->

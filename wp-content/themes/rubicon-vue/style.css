@@ -172,7 +172,7 @@ input {border-radius: 40px;border: solid 1px #aaa;font-size: 20px;padding: 10px 
   width: 100%
 }
 
-.main-content-wrap {padding-top: 174px}
+.main-content-wrap {padding-top: 174px;min-height: 75vh}
 
 .slider-wrap {width: 100%;/* padding-top: 193px; */}
 .slider-wrap img {width: 100%;height: 100%}

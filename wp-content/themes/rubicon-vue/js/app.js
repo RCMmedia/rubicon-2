@@ -9,8 +9,8 @@
 var home = Vue.component('home-page', {
     template: '#home-template',
     created: function() {
-	      //document.title = 'Rubicon Deli Vue'  
-				//document.head.querySelector('meta[name=description]').content = 'This is where we will put the description'  
+	      document.title = 'Rubicon Deli Vue'  
+				document.head.querySelector('meta[name=description]').content = 'This is where we will put the description'  
 
     },
     methods: {
@@ -73,7 +73,7 @@ var post = Vue.component('post', {
 //show locations finder
 var locationfinder = Vue.component('location-finder', {
     template: '#location-finder-wrap',
-    props: ["menuFinder"],
+    props: ["locationFinder","menuFinder","cateringFinder"],
     data: function(){
 	    return {
 		    messages: [],
@@ -131,11 +131,9 @@ var locationfinder = Vue.component('location-finder', {
         $('.loader').show();
 				this.spinner = true;
 				return false;
-				console.log('hello')
-      	
-				
+				console.log('hello');
 			}
-			}
+		}
 });
 
 var singleLocationMenu = Vue.component('single-location-menu', {
@@ -173,10 +171,22 @@ var singleLocationMenu = Vue.component('single-location-menu', {
 			 if(this.menuPageID){
 	 			axios.get('/rubicon-vue/wp-json/wp/v2/pages/' + this.menuPageID).then(response => this.post = response.data).then(function (response) {
 				console.log(response);
+				//set timeout so that waypoint waits until page has loaded before looking for element.
+				setTimeout(function(){ 
+					var sticky = new Waypoint.Sticky({
+						element: $('#menu-navigation-wrap')[0]
+					});	
+					}, 1000);
 			});
 			 } else if (this.cateringPageID){ 
 				 	axios.get('/rubicon-vue/wp-json/wp/v2/pages/' + this.cateringPageID).then(response => this.post = response.data).then(function (response) {
 				console.log(response);
+				//set timeout so that waypoint waits until page has loaded before looking for element.
+				setTimeout(function(){ 
+					var sticky = new Waypoint.Sticky({
+						element: $('#menu-navigation-wrap')[0]
+					});	
+					}, 1000);
 			});
 			 } else {
 				axios.get('/rubicon-vue/wp-json/wp/v2/pages/' + global_page_id).then(response => this.post = response.data).then(function (response) {
@@ -323,14 +333,24 @@ var router = new VueRouter({
         { path: '/rubicon-vue/', component: home },
         { path: '/rubicon-vue/posts', component: postLists },
         { path: '/rubicon-vue/posts/:parent_id', name: 'post', component: post },
-        { path: '/rubicon-vue/locations', name: 'location', component: locationfinder , props: { default: true, menuFinder: false }},
-        { path: '/rubicon-vue/menus', name: 'location2', component: locationfinder , props: { default: true, menuFinder: true }},
+        { path: '/rubicon-vue/locations', name: 'location', component: locationfinder , props: { default: true,locationFinder: true, menuFinder: false, cateringFinder:false }},
+        { path: '/rubicon-vue/menus', name: 'location2', component: locationfinder , props: { default: true,locationFinder: false, menuFinder: true, cateringFinder:false }},
+        { path: '/rubicon-vue/catering-finder', name: 'location3', component: locationfinder , props: { default: true,locationFinder: false, menuFinder: false, cateringFinder:true }},
         { path: '/rubicon-vue/locations/:postName', name: 'locationSingle', component: singleLocation , props: true},
         { path: '/rubicon-vue/locations/:parentName/:postName', name: 'locationMenu2', component: singleLocationMenu , props: true },
-        { path: '/rubicon-vue/locations/:parentName/:postName', name: 'cateringMenu', component: singleLocationMenu , props: true },
-        { path: '/rubicon-vue/locations/*', name: 'locationMenu', component: singleLocationMenu }
+        { path: '/rubicon-vue/locations/:parentName/:postName', name: 'cateringMenu', component: singleLocationMenu , props: true }
+        //,{ path: '/rubicon-vue/locations/*', name: 'locationMenu', component: singleLocationMenu }
     ]
 });
+
+/*
+router.beforeEach((to, from, next) => {
+	
+  document.title = to.meta.title
+  next();
+  
+});
+*/
 
 new Vue({
     el: '#app',

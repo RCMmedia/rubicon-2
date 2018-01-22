@@ -1,13 +1,14 @@
 <template id="location-finder-wrap">
 
-	<div v-if="!loading" v-bind:class="{ 'menu-finder': menuFinder == true }" class="locations-wrap bh-sl-container">
+	<div v-if="!loading" v-bind:class="{ 'menu-finder': menuFinder == true || cateringFinder == true }" class="locations-wrap bh-sl-container">
 		
   	<div id="page-header" class="page-header">
 	  	
 	  	<div class="inner-wrap">
 		  	
-   	  	<h1 v-if="menuFinder == false" class="locations-title bh-sl-title" >FIND A RUBICON<span>LOCATION NEAR YOU!</span></h1>
+   	  	<h1 v-if="locationFinder !== false" class="locations-title bh-sl-title" >FIND A RUBICON<span>LOCATION NEAR YOU!</span></h1>
    	  	<h1 v-else-if="menuFinder !== false" class="locations-title bh-sl-title" >FIND A RUBICON<span>MENU NEAR YOU!</span></h1>
+   	  	<h1 v-else-if="cateringFinder !== false || menuFinder == false" class="locations-title bh-sl-title" >FIND A RUBICON<span>CATERING NEAR YOU!</span></h1>
    	  	
    	  	<div class="bh-sl-form-container">
     		  <form id="bh-sl-user-location" method="post" action="#">
