@@ -11,6 +11,7 @@ var home = Vue.component('home-page', {
     created: function() {
 	      document.title = 'Rubicon Deli Vue'  
 				document.head.querySelector('meta[name=description]').content = 'This is where we will put the description'  
+				jQuery('.slider-wrap .video-overlay .inner').addclass('loaded');
 
     },
     methods: {
@@ -131,7 +132,7 @@ var locationfinder = Vue.component('location-finder', {
         $('.loader').show();
 				this.spinner = true;
 				return false;
-				console.log('hello');
+				//console.log('hello');
 			}
 		}
 });
@@ -207,7 +208,7 @@ var singleLocationMenu = Vue.component('single-location-menu', {
 			scrollMenu: function(){
 				var $root = $('html, body');
 						$root.animate({
-							scrollTop: $('.menu-scroll-anchor').offset().top -184
+							scrollTop: $('#menu-navigation-wrap').offset().top
 	    			}, 500);
 			},
 				
@@ -323,7 +324,42 @@ var singleLocation = Vue.component('single-location', {
 		}
 });
 
+var catering = Vue.component('catering', {
+    template: '#catering-finder-wrap',
+    created: function() {
+	      document.title = 'Catering | Rubicon Deli Vue'  
+				//document.head.querySelector('meta[name=description]').content = 'This is where we will put the description'  
+				
+//resize video
+var $video  = $('video'),
+    $window = $(window); 
 
+$(window).resize(function(){
+    
+    var height = $window.height();
+    $video.css('height', height);
+    
+    var videoWidth = $video.width(),
+        windowWidth = $window.width(),
+    marginLeftAdjust =   (windowWidth - videoWidth) / 2;
+    
+    $video.css({
+        'height': height, 
+        'marginLeft' : marginLeftAdjust
+    });
+}).resize();
+
+    },
+    methods: {
+	    scrollTop: function() {
+		    var $root = $('html, body');
+		    $root.animate({
+	        scrollTop: $('body').offset().top
+	    }, 500);
+	    return false;
+	    }
+    }
+});
 
 
 //router
@@ -335,7 +371,7 @@ var router = new VueRouter({
         { path: '/rubicon-vue/posts/:parent_id', name: 'post', component: post },
         { path: '/rubicon-vue/locations', name: 'location', component: locationfinder , props: { default: true,locationFinder: true, menuFinder: false, cateringFinder:false }},
         { path: '/rubicon-vue/menus', name: 'location2', component: locationfinder , props: { default: true,locationFinder: false, menuFinder: true, cateringFinder:false }},
-        { path: '/rubicon-vue/catering-finder', name: 'location3', component: locationfinder , props: { default: true,locationFinder: false, menuFinder: false, cateringFinder:true }},
+        { path: '/rubicon-vue/catering', name: 'location3', component: catering , props: { default: true,locationFinder: false, menuFinder: false, cateringFinder:true }},
         { path: '/rubicon-vue/locations/:postName', name: 'locationSingle', component: singleLocation , props: true},
         { path: '/rubicon-vue/locations/:parentName/:postName', name: 'locationMenu2', component: singleLocationMenu , props: true },
         { path: '/rubicon-vue/locations/:parentName/:postName', name: 'cateringMenu', component: singleLocationMenu , props: true }

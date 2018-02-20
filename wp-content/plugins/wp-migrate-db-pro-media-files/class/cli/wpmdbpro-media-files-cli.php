@@ -63,7 +63,7 @@ class WPMDBPro_Media_Files_CLI extends WPMDBPro_Media_Files {
 			$remove_files = 1;
 			while ( 1 == $remove_files ) {
 				$_POST['compare'] = $compare;
-				$_POST['offset']  = $offset;
+				$_POST['offset']  = json_encode( $offset );
 
 				$response = $this->media_files_local->ajax_remove_files_recursive();
 				if ( is_wp_error( $remove_files_recursive_response = $wpmdbpro_cli->verify_cli_response( $response, 'ajax_remove_files_recursive()' ) ) ) {
@@ -116,7 +116,7 @@ class WPMDBPro_Media_Files_CLI extends WPMDBPro_Media_Files {
 
 			$total_files = count( $files_to_migrate );
 			if ( $total_files > 0 ) {
-				$migrate_bar = new WPMDBPro_Media_Files_CLI_Bar( sprintf( $this->get_string( 'migrate_media_files_cli_' . $intent ), 0, $total_files ), 0 );
+				$migrate_bar = $this->make_progress_bar( sprintf( $this->get_string( 'migrate_media_files_cli_' . $intent ), 0, $total_files ), 0 );
 				$migrate_bar->setTotal( $total_size );
 
 				$current_file_index = 0;
@@ -176,7 +176,7 @@ class WPMDBPro_Media_Files_CLI extends WPMDBPro_Media_Files {
 			$remove_files = 1;
 			while ( 1 == $remove_files ) {
 				$_POST['compare'] = $compare;
-				$_POST['offset']  = $offset;
+				$_POST['offset']  = json_encode( $offset );
 
 				$response = $this->media_files_local->ajax_remove_files_recursive();
 				if ( is_wp_error( $remove_files_recursive_response = $wpmdbpro_cli->verify_cli_response( $response, 'ajax_remove_files_recursive()' ) ) ) {
@@ -190,5 +190,20 @@ class WPMDBPro_Media_Files_CLI extends WPMDBPro_Media_Files {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Like WP_CLI\Utils\make_progress_bar, but uses our own wrapper classes
+	 *
+	 * @param $message
+	 * @param $count
+	 *
+	 * @return WPMDBPro_Media_Files_CLI_Bar|WPMDBPro_Media_Files_CLI_Bar_NoOp
+	 */
+	function make_progress_bar( $message, $count ) {
+		if ( method_exists( 'cli\Shell','isPiped' ) && \cli\Shell::isPiped() ) {
+			return new WPMDBPro_Media_Files_CLI_Bar_NoOp;
+		}
+		return new  WPMDBPro_Media_Files_CLI_Bar( $message, $count );
 	}
 }

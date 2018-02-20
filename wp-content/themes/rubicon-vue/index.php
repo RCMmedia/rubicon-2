@@ -8,18 +8,18 @@
 		<div class="inner-wrap">
 			<div class="left">
 				<div class="menu-icon-wrap">
-				<div class="menu-icon" href="#">
-					<span></span>
-					<span></span>
-					<span></span>
-				</div><!-- menu-icon -->
-			</div><!-- menu-icon-wrap -->
+					<div class="menu-icon" href="#">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div><!-- menu-icon -->
+				</div><!-- menu-icon-wrap -->
 			</div><!-- left -->
 			<div class="middle">
 				<div class="logo">
 				<router-link v-on:click.native="scrollTop" to="/rubicon-vue/">
-					<img src="<?php bloginfo('template_url') ?>/images/rubicon_logo.svg" alt="logo-placeholder" width="350" height="130" />
-					<img style="display: none" src="<?php bloginfo('template_url') ?>/images/dd.svg" alt="dapperman" height="130" />
+					<img id="ruby-logo" src="<?php bloginfo('template_url') ?>/images/rubicon_logo.svg" alt="logo-placeholder" width="350" height="130" />
+					<img id="dapper-logo" style="display: none" src="<?php bloginfo('template_url') ?>/images/dd.svg" alt="dapperman" height="130" />
 				</router-link>
 			</div><!-- logo -->
 			</div><!-- middle -->
@@ -96,6 +96,7 @@
 <?php include(get_template_directory().'/templates/post-single.php'); ?>
 
 <?php include(get_template_directory().'/templates/location-finder.php'); ?>
+<?php include(get_template_directory().'/templates/catering-finder.php'); ?>
 <?php include(get_template_directory().'/templates/single-location.php'); ?>
 <?php include(get_template_directory().'/templates/single-menu.php'); ?>
 

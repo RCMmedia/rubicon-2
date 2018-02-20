@@ -12,8 +12,8 @@
 				 	
 					<div class="location-name">
 						{{post.acf.location_name}}
-						<div v-if="post.acf.catering_page_id" class="red">MENU</div>
-						<div v-else-if="post.acf.menu_page_id" class="red">CATERING</div>
+						<div class="red">MENU</div>
+<!-- 						<div v-else-if="post.acf.menu_page_id" class="red">CATERING</div> -->
 					</div><!-- location-name -->
 					<div class="print-pdf">
 						<a :href="post.acf.menu_file" target="_blank">PRINT/View MENU PDF <span>+</span></a>
@@ -21,7 +21,8 @@
 					<div class="link-wrap">
 						<router-link :to="{name: 'locationSingle', params: {postName: post.acf.location_page_id.post_name, locationPageID: post.acf.location_page_id.ID}}">View Location Info</router-link>
 						
-						<router-link v-if="post.acf.catering_page_id" :to="{name: 'cateringMenu', params: {postName: post.acf.catering_page_id.post_name, postName: post.acf.catering_page_id.post_name, cateringPageID: post.acf.catering_page_id.ID}}">View Catering</router-link>
+<!-- 						<router-link v-if="post.acf.catering_page_id" :to="{name: 'cateringMenu', params: {postName: post.acf.catering_page_id.post_name, postName: post.acf.catering_page_id.post_name, cateringPageID: post.acf.catering_page_id.ID}}">Order Catering</router-link> -->
+						<router-link  :to="{name: 'cateringMenu', params: {postName: post.acf.catering_page_id.post_name, postName: post.acf.catering_page_id.post_name, cateringPageID: post.acf.catering_page_id.ID}}">Order Catering</router-link>
 						
 						<router-link v-if="post.acf.menu_page_id" :to="{name: 'locationMenu2', params: {parentName: post.acf.menu_page_id[0].post_name, postName: post.acf.menu_page_id[1].post_name, menuPageID: post.acf.menu_page_id[1].ID}}">View Menu {{post.acf.menu_page_id.ID}}</router-link>
 					</div><!-- link-wrap -->
@@ -31,18 +32,18 @@
 			
 			<div class="menu-container">
 				<div id="menu-navigation-wrap" class="menu-navigation-wrap">
-					<button v-on:click="toggleVisibility('sandwich-wrap');scrollMenu()"><span>Sandwiches</span> +</button>
-					<button v-on:click="toggleVisibility('salads-wrap');scrollMenu()"><span>Best Dressed Salads</span> +</button>
-					<button v-on:click="toggleVisibility('soups-wrap');scrollMenu()"><span>Soups</span> +</button>
-					<button v-on:click="toggleVisibility('whipper-snappers-wrap');scrollMenu()"><span>Whipper snappers</span> +</button>
-					<button v-on:click="toggleVisibility('brews-wrap');scrollMenu()"><span>Brews</span> +</button>
-					<button v-on:click="toggleVisibility('drinks-wrap');scrollMenu()"><span>Drinks</span> +</button>
-					<button v-on:click="toggleVisibility('sides-wrap');scrollMenu()"><span>Sides</span> +</button>
-					<button v-on:click="toggleVisibility('sweet-tooth-wrap');scrollMenu()"><span>Sweet Tooth</span> +</button>
-					<button v-on:click="toggleVisibility('dapper-deals-wrap');scrollMenu()"><span>Dapper Deals</span> +</button>
+					<button v-if="post.acf.sandwiches_show_or_hide == 'show'" v-on:click="scrollMenu();toggleVisibility('sandwich-wrap');"><span>Sandwiches</span> +</button>
+					<button v-if="post.acf.salads_show_or_hide == 'show'" v-on:click="scrollMenu();toggleVisibility('salads-wrap');"><span>Best Dressed Salads</span> +</button>
+					<button v-if="post.acf.soups_show_or_hide == 'show'" v-on:click="scrollMenu();toggleVisibility('soups-wrap');"><span>Soups</span> +</button>
+					<button v-if="post.acf.whippersnappers_show_or_hide == 'show'" v-on:click="scrollMenu();toggleVisibility('whipper-snappers-wrap');"><span>Whipper snappers</span> +</button>
+					<button v-if="post.acf.brews_show_or_hide == 'show'" v-on:click="scrollMenu();toggleVisibility('brews-wrap');"><span>Brews</span> +</button>
+					<button v-if="post.acf.drinks_show_or_hide == 'show'" v-on:click="scrollMenu();toggleVisibility('drinks-wrap');"><span>Drinks</span> +</button>
+					<button v-if="post.acf.sides_show_or_hide == 'show'" v-on:click="scrollMenu();toggleVisibility('sides-wrap');"><span>Sides</span> +</button>
+					<button v-if="post.acf.sweets_show_or_hide == 'show'" v-on:click="scrollMenu();toggleVisibility('sweet-tooth-wrap');"><span>Sweet Tooth</span> +</button>
+					<!-- <button v-on:click="toggleVisibility('dapper-deals-wrap');scrollMenu()"><span>Dapper Deals</span> +</button> -->
 				</div><!-- menu-navigation-wrap -->
 				<div class="menu-scroll-anchor"></div>
-				<div id="sandwich-wrap" class="menu-section">
+				<div id="sandwich-wrap" class="menu-section" v-if="post.acf.sandwiches_show_or_hide == 'show'">
 					<div class="box">
 						<h3 class="menu-type-title">Sandwiches</h3>
 						<p>{{post.acf.sandwiches_menu_builder[0].description}}</p>
@@ -65,7 +66,7 @@
 				
 				<div id="salads-wrap" class="menu-section" style="display: none;">
 					<div class="box" v-for="section in post.acf.salads_menu_builder[0].menu">
-						<h3 class="menu-type-title">Best Dressed Salads</h3>
+						<h3 class="menu-type-title">{{section.section_title}}</h3>
 						<div class="flex-wrap" v-for="field in section.menu_section">
 							<div class="item-name">{{field.item_name}}</div>
 							<div class="item-description" v-html="field.item_description"></div>
@@ -167,16 +168,17 @@
 						</div><!-- flex-wrap -->
 					</div><!-- box -->
 				</div><!-- sandwich-wrap -->
+<!--
 				<div id="dapper-deals-wrap" class="menu-section" style="display: none;">
 					<div class="box" v-for="section in post.acf.dapperdeals_menu_builder[0].menu">
 						<h3 class="menu-type-title">Dapper Deals</h3>
 						<div class="flex-wrap mini" v-for="field in section.menu_section">
-<!-- 							<div class="item-name">{{field.item_name}}</div> -->
 							<div class="item-description" v-html="field.item_description"></div>
 							<div class="item-price">{{field.price}}</div>
-						</div><!-- flex-wrap -->
-					</div><!-- box -->
-				</div><!-- sandwich-wrap -->
+						</div>
+					</div>
+				</div>
+-->
 				
 				
 				
